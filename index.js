@@ -128,7 +128,88 @@ function extractCitiesData(breweries) {
   return [...new Set(cities)];
 }
 
-};
+function renderFilterSection() {
+  const filtersSectionElem = document.createElement("aside");
+  filtersSectionElem.className = "filters-section";
+  mainSectionElem.append(filtersSectionElem);
+
+  const headingElem = document.createElement("h2");
+  headingElem.innerText = "Filter By:";
+  filtersSectionElem.append(headingElem);
+
+  // FILTER BY TYPE
+
+  const typeFilterFormElem = document.createElement("form");
+  typeFilterFormElem.id = "filter-by-type-form";
+  typeFilterFormElem.setAttribute("autocomplete", "off");
+  filtersSectionElem.append(typeFilterFormElem);
+
+  const typeFilterLabelElem = document.createElement("label");
+  typeFilterLabelElem.setAttribute("for", "filter-by-type");
+  typeFilterFormElem.append(typeFilterLabelElem);
+
+  const labelHeading = document.createElement("h3");
+  labelHeading.innerText = "Type of Brewery";
+  typeFilterLabelElem.append(labelHeading);
+
+  const typeFilterSelectElem = document.createElement("select");
+  typeFilterSelectElem.setAttribute("name", "filter-by-type");
+  typeFilterSelectElem.id = "filter-by-type";
+  typeFilterFormElem.append(typeFilterSelectElem);
+
+  const defaultOptionElem = document.createElement("option");
+  defaultOptionElem.setAttribute("value", "");
+  defaultOptionElem.innerText = "Select a type...";
+  typeFilterSelectElem.append(defaultOptionElem);
+
+  const microOptionElem = document.createElement("option");
+  microOptionElem.setAttribute("value", "micro");
+  microOptionElem.innerText = "Micro";
+  typeFilterSelectElem.append(microOptionElem);
+
+  const regionalOptionElem = document.createElement("option");
+  regionalOptionElem.setAttribute("value", "regional");
+  regionalOptionElem.innerText = "Regional";
+  typeFilterSelectElem.append(regionalOptionElem);
+
+  const brewpubOptionElem = document.createElement("option");
+  brewpubOptionElem.setAttribute("value", "brewpub");
+  brewpubOptionElem.innerText = "Brewpub";
+  typeFilterSelectElem.append(brewpubOptionElem);
+
+  // FILTER BY CITY HEADING
+
+  const cityFilterElem = document.createElement("div");
+  cityFilterElem.className = "filter-by-city-heading";
+  filtersSectionElem.append(cityFilterElem);
+
+  const cityFilterHeadingElem = document.createElement("h3");
+  cityFilterHeadingElem.innerText = "Cities";
+  cityFilterElem.append(cityFilterHeadingElem);
+
+  const clearButton = document.createElement("button");
+  clearButton.className = "clear-all-btn";
+  clearButton.innerText = "clear all";
+  cityFilterElem.append(clearButton);
+
+  // FILTER BY CITY FORM
+  const cityFilterFormElem = document.createElement("form");
+  cityFilterFormElem.id = "filter-by-city-form";
+  filtersSectionElem.append(cityFilterFormElem);
+
+  state.cities.forEach((city) => {
+    const inputElem = document.createElement("input");
+    inputElem.setAttribute("type", "checkbox");
+    inputElem.setAttribute("name", city);
+    inputElem.setAttribute("value", city);
+    cityFilterFormElem.append(inputElem);
+
+    const inputLabel = document.createElement("label");
+    inputLabel.setAttribute("for", city);
+    inputLabel.innerText = city;
+    cityFilterFormElem.append(inputLabel);
+  });
+}
 
 function renderBreweriesList() {
   console.log("Inside renderBreweriesList: ", state.breweries);
