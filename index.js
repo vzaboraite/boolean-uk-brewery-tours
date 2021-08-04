@@ -128,6 +128,15 @@ function extractCitiesData(breweries) {
   return [...new Set(cities)];
 }
 
+/* RENDER FUNCTIONS */
+
+function renderMainSection() {
+  mainSectionElem.innerHTML = "";
+
+  renderFilterSection();
+  renderBreweriesList();
+}
+
 function renderFilterSection() {
   const filtersSectionElem = document.createElement("aside");
   filtersSectionElem.className = "filters-section";
@@ -314,4 +323,4 @@ function renderBreweriesList() {
   }
 }
 
-renderBreweriesList();
+renderMainSection();
