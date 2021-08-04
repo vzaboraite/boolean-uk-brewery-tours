@@ -214,7 +214,104 @@ function renderFilterSection() {
 function renderBreweriesList() {
   console.log("Inside renderBreweriesList: ", state.breweries);
 
-  for (let i = 0; i < state.breweries.length; i++) {}
+  const mainHeadingElem = document.createElement("h1");
+  mainHeadingElem.innerText = "List of Breweries";
+  mainSectionElem.append(mainHeadingElem);
+
+  const searchBarHeaderElem = document.createElement("header");
+  searchBarHeaderElem.className = "search-bar";
+  mainSectionElem.append(searchBarHeaderElem);
+
+  // SEARCH BREWERIES FORM
+
+  const searchFormElem = document.createElement("form");
+  searchFormElem.id = "search-breweries-form";
+  searchFormElem.setAttribute("autocomplete", "off");
+  searchBarHeaderElem.append(searchFormElem);
+
+  const searchBarLabelElem = document.createElement("label");
+  searchBarLabelElem.setAttribute("for", "search-breweries");
+  searchFormElem.append(searchBarLabelElem);
+
+  const searchBarHeadingElem = document.createElement("h2");
+  searchBarHeadingElem.innerText = "Search breweries:";
+  searchBarLabelElem.append(searchBarHeadingElem);
+
+  const searchBarInputElem = document.createElement("input");
+  searchBarLabelElem.id = "search-breweries";
+  searchBarLabelElem.setAttribute("name", "search-breweries");
+  searchBarLabelElem.setAttribute("type", "text");
+  searchFormElem.append(searchBarInputElem);
+
+  // BREWERIES LIST
+
+  const listWrapperElem = document.createElement("article");
+  mainSectionElem.append(listWrapperElem);
+
+  const breweriesListContainerElem = document.createElement("ul");
+  breweriesListContainerElem.className = "breweries-list";
+  listWrapperElem.append(breweriesListContainerElem);
+
+  // generate list elements
+  for (let i = 0; i < state.breweries.length; i++) {
+    const brewery = state.breweries[i];
+
+    const breweryListElem = document.createElement("li");
+    breweriesListContainerElem.append(breweryListElem);
+
+    const breweryNameElem = document.createElement("h2");
+    breweryNameElem.innerText = brewery.name;
+    breweryListElem.append(breweryNameElem);
+
+    const breweryTypeElem = document.createElement("div");
+    breweryTypeElem.className = "type";
+    breweryTypeElem.innerText = brewery["brewery_type"];
+    breweryListElem.append(breweryTypeElem);
+
+    // address section
+    const addressSectionElem = document.createElement("section");
+    addressSectionElem.className = "address";
+    breweryListElem.append(addressSectionElem);
+
+    const addressHeadingElem = document.createElement("h3");
+    addressHeadingElem.innerText = "Address:";
+    addressSectionElem.append(addressHeadingElem);
+
+    const streetElem = document.createElement("p");
+    streetElem.innerText = brewery.street;
+    addressSectionElem.append(streetElem);
+
+    const postCodeWrapElem = document.createElement("p");
+    addressSectionElem.append(postCodeWrapElem);
+
+    const postCodeElem = document.createElement("strong");
+    postCodeElem.innerText = `${brewery.city}, ${brewery["postal_code"]}`;
+    postCodeWrapElem.append(postCodeElem);
+
+    // phone section
+    const phoneSectionElem = document.createElement("section");
+    phoneSectionElem.className = "phone";
+    breweryListElem.append(phoneSectionElem);
+
+    const phoneHeadingElem = document.createElement("h3");
+    phoneHeadingElem.innerText = "Phone:";
+    phoneSectionElem.append(phoneHeadingElem);
+
+    const phoneElem = document.createElement("p");
+    phoneElem.innerText = brewery.phone ? brewery.phone : "N/A";
+    phoneSectionElem.append(phoneElem);
+
+    // link to the web-page section
+    const linkSectionElem = document.createElement("section");
+    linkSectionElem.className = "link";
+    breweryListElem.append(linkSectionElem);
+
+    const linkElem = document.createElement("a");
+    linkElem.setAttribute("href", brewery["website_url"]);
+    linkElem.setAttribute("target", "_blank");
+    linkElem.innerText = "Visit Website";
+    linkSectionElem.append(linkElem);
+  }
 }
 
 renderBreweriesList();
