@@ -78,6 +78,14 @@
       - output: ??
 */
 
+/* ELEMENTS */
+
+const stateFormElem = document.querySelector("#select-state-form");
+
+const selectStateInputElem = document.querySelector("#select-state");
+
+const mainSectionElem = document.querySelector("main");
+
 let state = {
   selectStateInput: "",
   breweries: [],
