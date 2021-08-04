@@ -86,6 +86,18 @@ const selectStateInputElem = document.querySelector("#select-state");
 
 const mainSectionElem = document.querySelector("main");
 
+stateFormElem.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!selectStateInputElem.value) {
+    return;
+  }
+  console.log("submited!!", selectStateInputElem.value);
+  fetchStateBreweries(selectStateInputElem.value);
+  stateFormElem.reset();
+});
+
+/* STATE OBJECT */
+
 let state = {
   selectStateInput: "",
   breweries: [],
@@ -93,8 +105,29 @@ let state = {
   filters: {
     type: "",
     city: [],
-    search: ""
-  }
+    search: "",
+  },
+};
+
+/* APIs */
+
+function fetchStateBreweries(stateInUSA) {
+  fetch(`https://api.openbrewerydb.org/breweries?by_state=${stateInUSA}`)
+    .then((res) => res.json())
+    .then((breweryData) => {
+      state.breweries = breweryData;
+      console.log("breweryData: ", state.breweries);
+
+      state.cities = extractCitiesData(state.breweries);
+      renderMainSection();
+    });
+}
+
+function extractCitiesData(breweries) {
+  const cities = breweries.map((brewery) => brewery.city);
+  return [...new Set(cities)];
+}
+
 };
 
 function renderBreweriesList() {
