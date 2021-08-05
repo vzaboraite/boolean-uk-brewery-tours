@@ -262,6 +262,12 @@ function renderBreweriesList() {
   const searchFormElem = document.createElement("form");
   searchFormElem.id = "search-breweries-form";
   searchFormElem.setAttribute("autocomplete", "off");
+  searchFormElem.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const searchValue = document.querySelector("#search-breweries").value;
+    state.filters.search = searchValue;
+    renderMainSection();
+  });
   searchBarHeaderElem.append(searchFormElem);
 
   const searchBarLabelElem = document.createElement("label");
