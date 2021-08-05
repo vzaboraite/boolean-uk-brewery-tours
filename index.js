@@ -91,8 +91,8 @@ stateFormElem.addEventListener("submit", (event) => {
   if (!selectStateInputElem.value) {
     return;
   }
-  console.log("submited!!", selectStateInputElem.value);
-  fetchStateBreweries(selectStateInputElem.value);
+  state.selectStateInput = selectStateInputElem.value;
+  fetchStateBreweries(state.selectStateInput);
   stateFormElem.reset();
 });
 
