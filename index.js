@@ -269,6 +269,8 @@ function renderBreweriesList() {
     const searchValue = document.querySelector("#search-breweries").value;
     state.filters.search = searchValue.toLowerCase();
     renderMainSection();
+    document.querySelector("#search-breweries").value = searchValue;
+    document.querySelector("#search-breweries").focus();
   });
   searchBarHeaderElem.append(searchFormElem);
 
