@@ -293,8 +293,10 @@ function renderBreweriesList() {
   breweriesListContainerElem.className = "breweries-list";
   listWrapperElem.append(breweriesListContainerElem);
 
+  const filteredBreweries = applyUserFilters(state.breweries);
+
   // generate list elements
-  state.breweries.forEach((brewery, i) => {
+  filteredBreweries.forEach((brewery, i) => {
     if (i > 9) return;
     const breweryListElem = document.createElement("li");
     breweriesListContainerElem.append(breweryListElem);
@@ -373,3 +375,7 @@ function cleanData(breweries) {
   return filteredBreweries;
 }
 
+// TODO: add user filters
+function applyUserFilters(breweries) {
+  return breweries;
+}
