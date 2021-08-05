@@ -112,7 +112,9 @@ let state = {
 /* APIs */
 
 function fetchStateBreweries(stateInUSA) {
-  fetch(`https://api.openbrewerydb.org/breweries?by_state=${stateInUSA}`)
+  fetch(
+    `https://api.openbrewerydb.org/breweries?by_state=${stateInUSA}&per_page=50`
+  )
     .then((res) => res.json())
     .then((breweryData) => {
       // filteredBreweries holds micro, regional and brewpub breweries, returned from cleanData()
