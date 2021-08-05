@@ -166,6 +166,15 @@ function renderFilterSection() {
   const typeFilterSelectElem = document.createElement("select");
   typeFilterSelectElem.setAttribute("name", "filter-by-type");
   typeFilterSelectElem.id = "filter-by-type";
+  typeFilterSelectElem.addEventListener("change", (event) => {
+    event.preventDefault();
+
+    state.filters.type = event.target.value;
+    // console.log("user choise: ", event.target.value);
+    // console.log("state type: ", state);
+
+    renderMainSection();
+  });
   typeFilterFormElem.append(typeFilterSelectElem);
 
   const defaultOptionElem = document.createElement("option");
