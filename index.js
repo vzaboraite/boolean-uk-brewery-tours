@@ -197,6 +197,21 @@ function renderFilterSection() {
   brewpubOptionElem.innerText = "Brewpub";
   typeFilterSelectElem.append(brewpubOptionElem);
 
+  switch (state.filters.type) {
+    case "":
+      defaultOptionElem.selected = true;
+      break;
+    case "micro":
+      microOptionElem.selected = true;
+      break;
+    case "regional":
+      regionalOptionElem.selected = true;
+      break;
+    case "brewpub":
+      brewpubOptionElem.selected = true;
+      break;
+  }
+
   // FILTER BY CITY HEADING
 
   const cityFilterElem = document.createElement("div");
