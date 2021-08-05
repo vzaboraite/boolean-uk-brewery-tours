@@ -262,9 +262,8 @@ function renderBreweriesList() {
   listWrapperElem.append(breweriesListContainerElem);
 
   // generate list elements
-  for (let i = 0; i < state.breweries.length; i++) {
-    const brewery = state.breweries[i];
-
+  state.breweries.forEach((brewery, i) => {
+    if (i > 9) return;
     const breweryListElem = document.createElement("li");
     breweriesListContainerElem.append(breweryListElem);
 
@@ -320,7 +319,5 @@ function renderBreweriesList() {
     linkElem.setAttribute("target", "_blank");
     linkElem.innerText = "Visit Website";
     linkSectionElem.append(linkElem);
-  }
+  });
 }
-
-renderMainSection();
