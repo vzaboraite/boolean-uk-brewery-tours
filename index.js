@@ -115,7 +115,9 @@ function fetchStateBreweries(stateInUSA) {
   fetch(`https://api.openbrewerydb.org/breweries?by_state=${stateInUSA}`)
     .then((res) => res.json())
     .then((breweryData) => {
-      state.breweries = breweryData;
+      // filteredBreweries holds micro, regional and brewpub breweries, returned from cleanData()
+      const filteredBreweries = cleanData(breweryData);
+      state.breweries = filteredBreweries;
       console.log("breweryData: ", state.breweries);
 
       state.cities = extractCitiesData(state.breweries);
@@ -321,3 +323,23 @@ function renderBreweriesList() {
     linkSectionElem.append(linkElem);
   });
 }
+
+// ******************************************
+
+function cleanData(breweries) {
+  const filteredBreweries = breweries.filter((brewery) => {
+    const type = brewery["brewery_type"];
+    if (type === "micro") {
+      return true;
+    } else if (type === "regional") {
+      return true;
+    } else if (type === "brewpub") {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  return filteredBreweries;
+}
+
