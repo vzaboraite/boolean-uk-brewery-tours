@@ -267,7 +267,7 @@ function renderBreweriesList() {
   searchFormElem.addEventListener("submit", (event) => {
     event.preventDefault();
     const searchValue = document.querySelector("#search-breweries").value;
-    state.filters.search = searchValue;
+    state.filters.search = searchValue.toLowerCase();
     renderMainSection();
   });
   searchBarHeaderElem.append(searchFormElem);
@@ -379,8 +379,9 @@ function cleanData(breweries) {
 
 // TODO: add user filters
 function applyUserFilters(breweries) {
-  const filteredByTypeBreweries = filterByType(breweries);
-  return filteredByTypeBreweries;
+  const filteredByType = filterByType(breweries);
+  const filteredBySearch = filterBySearch(filteredByType);
+  return filteredBySearch;
 }
 
 function filterByType(breweries) {
@@ -390,6 +391,18 @@ function filterByType(breweries) {
 
   const filteredBreweries = breweries.filter(
     (brewery) => brewery["brewery_type"] === state.filters.type
+  );
+  return filteredBreweries;
+}
+
+function filterBySearch(breweries) {
+  if (state.filters.search === "") {
+    return breweries;
+  }
+  const filteredBreweries = breweries.filter(
+    (brewery) =>
+      brewery.name.toLowerCase().includes(state.filters.search) ||
+      brewery.city.toLowerCase().includes(state.filters.search)
   );
   return filteredBreweries;
 }
