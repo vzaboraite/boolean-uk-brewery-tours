@@ -388,10 +388,8 @@ function filterByType(breweries) {
     return breweries;
   }
 
-  const filteredBreweries = breweries.filter((brewery) => {
-    if (brewery["brewery_type"] === state.filters.type) {
-      return true;
-    }
-  });
+  const filteredBreweries = breweries.filter(
+    (brewery) => brewery["brewery_type"] === state.filters.type
+  );
   return filteredBreweries;
 }
