@@ -273,9 +273,9 @@ function renderBreweriesList() {
   searchBarLabelElem.append(searchBarHeadingElem);
 
   const searchBarInputElem = document.createElement("input");
-  searchBarLabelElem.id = "search-breweries";
-  searchBarLabelElem.setAttribute("name", "search-breweries");
-  searchBarLabelElem.setAttribute("type", "text");
+  searchBarInputElem.id = "search-breweries";
+  searchBarInputElem.setAttribute("name", "search-breweries");
+  searchBarInputElem.setAttribute("type", "text");
   searchFormElem.append(searchBarInputElem);
 
   // BREWERIES LIST
