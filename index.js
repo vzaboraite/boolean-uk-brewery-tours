@@ -379,5 +379,19 @@ function cleanData(breweries) {
 
 // TODO: add user filters
 function applyUserFilters(breweries) {
-  return breweries;
+  const filteredByTypeBreweries = filterByType(breweries);
+  return filteredByTypeBreweries;
+}
+
+function filterByType(breweries) {
+  if (state.filters.type === "") {
+    return breweries;
+  }
+
+  const filteredBreweries = breweries.filter((brewery) => {
+    if (brewery["brewery_type"] === state.filters.type) {
+      return true;
+    }
+  });
+  return filteredBreweries;
 }
