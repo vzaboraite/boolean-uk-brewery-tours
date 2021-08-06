@@ -159,6 +159,17 @@ function renderFilterSection() {
     inputElem.setAttribute("type", "checkbox");
     inputElem.setAttribute("name", city);
     inputElem.setAttribute("value", city);
+    inputElem.addEventListener("change", (event) => {
+      event.preventDefault();
+      console.log("checked!", event.target.value, event.target.checked);
+
+      if (event.target.checked) {
+        state.filters.city.push(event.target.value);
+      } else {
+        state.filters.city.splice(indexOf(event.target.value), 1);
+        console.log("");
+      }
+    });
     cityFilterFormElem.append(inputElem);
 
     const inputLabel = document.createElement("label");
