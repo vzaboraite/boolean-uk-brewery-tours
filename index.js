@@ -11,7 +11,12 @@ stateFormElem.addEventListener("submit", (event) => {
   if (!selectStateInputElem.value) {
     return;
   }
-  state.selectStateInput = selectStateInputElem.value;
+
+  state = {
+    ...state,
+    selectStateInput: selectStateInputElem.value,
+  };
+  console.log("inside usaSateInput listener: ", state);
   fetchStateBreweries(state.selectStateInput);
   stateFormElem.reset();
 });
@@ -39,10 +44,13 @@ function fetchStateBreweries(stateInUSA) {
     .then((breweryData) => {
       // filteredBreweries holds micro, regional and brewpub breweries, returned from cleanData()
       const filteredBreweries = cleanData(breweryData);
-      state.breweries = filteredBreweries;
-      console.log("breweryData: ", state.breweries);
 
-      state.cities = extractCitiesData(state.breweries);
+      state = {
+        ...state,
+        breweries: filteredBreweries,
+        cities: extractCitiesData(filteredBreweries),
+      };
+      console.log("inside fetchStateBreweries: ", state);
       renderMainSection();
     });
 }
@@ -91,9 +99,14 @@ function renderFilterSection() {
   typeFilterSelectElem.addEventListener("change", (event) => {
     event.preventDefault();
 
-    state.filters.type = event.target.value;
-    // console.log("user choise: ", event.target.value);
-    // console.log("state type: ", state);
+    state = {
+      ...state,
+      filters: {
+        ...state.filters,
+        type: event.target.value,
+      },
+    };
+    console.log("State inside typeFilterSelectElem listener: ", state);
 
     renderMainSection();
   });
@@ -198,7 +211,16 @@ function renderBreweriesList() {
   searchFormElem.addEventListener("submit", (event) => {
     event.preventDefault();
     const searchValue = document.querySelector("#search-breweries").value;
-    state.filters.search = searchValue.toLowerCase();
+
+    state = {
+      ...state,
+      filters: {
+        ...state.filters,
+        search: searchValue.toLowerCase(),
+      },
+    };
+    console.log("State inside filterBySearch listener: ", state);
+
     renderMainSection();
     document.querySelector("#search-breweries").value = searchValue;
     document.querySelector("#search-breweries").focus();
