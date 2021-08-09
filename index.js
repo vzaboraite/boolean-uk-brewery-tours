@@ -158,6 +158,18 @@ function renderFilterSection() {
   const clearButton = document.createElement("button");
   clearButton.className = "clear-all-btn";
   clearButton.innerText = "clear all";
+  clearButton.addEventListener("click", (event) => {
+    state = {
+      ...state,
+      filters: {
+        ...state.filters,
+        type: "",
+        city: [],
+        search: "",
+      },
+    };
+    renderMainSection();
+  });
   cityFilterElem.append(clearButton);
 
   // FILTER BY CITY FORM
