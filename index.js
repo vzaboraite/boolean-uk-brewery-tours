@@ -173,13 +173,25 @@ function renderFilterSection() {
     inputElem.setAttribute("name", lowercasedCity);
     inputElem.setAttribute("value", lowercasedCity);
     inputElem.addEventListener("change", (event) => {
-      console.log("checked!", event.target.value, event.target.checked);
-
       if (event.target.checked) {
-        state.filters.city.push(event.target.value);
-      } else {
-        state.filters.city.splice(indexOf(event.target.value), 1);
-        console.log("");
+        state = {
+          ...state,
+          filters: {
+            ...state.filters,
+            city: [...state.filters.city, lowercasedCity],
+          },
+        };
+      } else if (!event.target.checked) {
+        const filteredCities = state.filters.city.filter(
+          (city) => city !== event.target.value
+        );
+        state = {
+          ...state,
+          filters: {
+            ...state.filters,
+            city: filteredCities,
+          },
+        };
       }
     });
     cityFilterFormElem.append(inputElem);
