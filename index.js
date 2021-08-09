@@ -16,7 +16,6 @@ stateFormElem.addEventListener("submit", (event) => {
     ...state,
     selectStateInput: selectStateInputElem.value,
   };
-  console.log("inside usaSateInput listener: ", state);
   fetchStateBreweries(state.selectStateInput);
   stateFormElem.reset();
 });
@@ -50,7 +49,6 @@ function fetchStateBreweries(stateInUSA) {
         breweries: filteredBreweries,
         cities: extractCitiesData(filteredBreweries),
       };
-      console.log("inside fetchStateBreweries: ", state);
       renderMainSection();
     });
 }
@@ -104,7 +102,6 @@ function renderFilterSection() {
         type: event.target.value,
       },
     };
-    console.log("State inside typeFilterSelectElem listener: ", state);
 
     renderMainSection();
   });
@@ -218,8 +215,6 @@ function renderFilterSection() {
 }
 
 function renderBreweriesList() {
-  console.log("Inside renderBreweriesList: ", state.breweries);
-
   const mainHeadingElem = document.createElement("h1");
   mainHeadingElem.innerText = "List of Breweries";
   mainSectionElem.append(mainHeadingElem);
@@ -244,7 +239,6 @@ function renderBreweriesList() {
         search: searchValue.toLowerCase(),
       },
     };
-    console.log("State inside filterBySearch listener: ", state);
 
     renderMainSection();
     document.querySelector("#search-breweries").value = searchValue;
