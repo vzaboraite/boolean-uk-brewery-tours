@@ -193,6 +193,7 @@ function renderFilterSection() {
           },
         };
       }
+      renderMainSection();
     });
     cityFilterFormElem.append(inputElem);
 
@@ -347,7 +348,8 @@ function cleanData(breweries) {
 function applyUserFilters(breweries) {
   const filteredByType = filterByType(breweries);
   const filteredBySearch = filterBySearch(filteredByType);
-  return filteredBySearch;
+  const filteredByCity = filterByCity(filteredBySearch);
+  return filteredByCity;
 }
 
 function filterByType(breweries) {
@@ -370,5 +372,15 @@ function filterBySearch(breweries) {
       brewery.name.toLowerCase().includes(state.filters.search) ||
       brewery.city.toLowerCase().includes(state.filters.search)
   );
+  return filteredBreweries;
+}
+
+function filterByCity(breweries) {
+  if (state.filters.city.length === 0) {
+    return breweries;
+  }
+  const filteredBreweries = breweries.filter((brewery) => {
+    return state.filters.city.includes(brewery.city.toLowerCase());
+  });
   return filteredBreweries;
 }
