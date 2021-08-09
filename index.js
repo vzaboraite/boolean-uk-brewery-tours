@@ -172,6 +172,7 @@ function renderFilterSection() {
     inputElem.setAttribute("type", "checkbox");
     inputElem.setAttribute("name", lowercasedCity);
     inputElem.setAttribute("value", lowercasedCity);
+    inputElem.checked = state.filters.city.includes(lowercasedCity);
     inputElem.addEventListener("change", (event) => {
       if (event.target.checked) {
         state = {
