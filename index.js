@@ -57,7 +57,7 @@ function fetchStateBreweries(stateInUSA) {
 
 function extractCitiesData(breweries) {
   const cities = breweries.map((brewery) => brewery.city);
-  return [...new Set(cities)];
+  return [...new Set(cities)].sort();
 }
 
 /* RENDER FUNCTIONS */
@@ -97,8 +97,6 @@ function renderFilterSection() {
   typeFilterSelectElem.setAttribute("name", "filter-by-type");
   typeFilterSelectElem.id = "filter-by-type";
   typeFilterSelectElem.addEventListener("change", (event) => {
-    event.preventDefault();
-
     state = {
       ...state,
       filters: {
@@ -168,12 +166,13 @@ function renderFilterSection() {
   filtersSectionElem.append(cityFilterFormElem);
 
   state.cities.forEach((city) => {
+    const lowercasedCity = city.toLowerCase();
+
     const inputElem = document.createElement("input");
     inputElem.setAttribute("type", "checkbox");
-    inputElem.setAttribute("name", city);
-    inputElem.setAttribute("value", city);
+    inputElem.setAttribute("name", lowercasedCity);
+    inputElem.setAttribute("value", lowercasedCity);
     inputElem.addEventListener("change", (event) => {
-      event.preventDefault();
       console.log("checked!", event.target.value, event.target.checked);
 
       if (event.target.checked) {
@@ -186,7 +185,7 @@ function renderFilterSection() {
     cityFilterFormElem.append(inputElem);
 
     const inputLabel = document.createElement("label");
-    inputLabel.setAttribute("for", city);
+    inputLabel.setAttribute("for", lowercasedCity);
     inputLabel.innerText = city;
     cityFilterFormElem.append(inputLabel);
   });
